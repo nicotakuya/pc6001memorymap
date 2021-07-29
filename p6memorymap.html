@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PC-6001 Memory Map</title>
+<script type="text/javascript">
+<!--
+const memtable = [
+ [
+  ["0x0000","0x3FFF","BASIC INTERPRETER"],
+  ["0x4000","0xBFFF","USER AREA A"],
+  ["0xC000","0xC3FF","SCREEN 1"],
+  ["0xC400","0xF9FF","USER AREA B"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","BASIC INTERPRETER"],
+  ["0x4000","0xBFFF","USER AREA A"],
+  ["0xC000","0xC3FF","SCREEN 1"],
+  ["0xC400","0xDFFF","USER AREA B"],
+  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","BASIC INTERPRETER"],
+  ["0x4000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8400","0xF9FF","USER AREA B"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","BASIC INTERPRETER"],
+  ["0x4000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8400","0xDFFF","USER AREA B"],
+  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","BASIC INTERPRETER"],
+  ["0x4000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8400","0xBFFF","USER AREA B"],
+  ["0xC000","0xDFFF","SCREEN 3"],
+  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","BASIC INTERPRETER"],
+  ["0x4000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8400","0x9FFF","USER AREA B"],
+  ["0xA000","0xBFFF","SCREEN 4"],
+  ["0xC000","0xDFFF","SCREEN 3"],
+  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""]
+ ]
+];
+
+const colortable = [
+  "#000000",
+  "#0088ff",
+  "#ff8800",
+  "#ff88ff",
+  "#00ff88",
+  "#88ffff",
+  "#ffff00",
+  "#ffffff",
+  "#8888ff",
+  "#000088",
+  "#880000",
+  "#880088",
+  "#448844",
+  "#884444"
+];
+
+function adr2pos(adr){
+  var pos;
+  pos = (adr / 160)+10;
+//  pos = 440 - pos;	// for old user
+  return(pos);
+}
+
+function test() {
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var menu = document.getElementById("menu");
+var selnum = menu.value;
+
+var startadr,endadr,labelname;
+var tmpstr,x,y,idx;
+
+ctx.fillStyle = '#f0f0f0';
+ctx.fillRect(0, 0, 480, 480);
+
+ctx.font = "14px";
+for (idx = 0; idx < 9; idx++) {
+  if(memtable[selnum][idx][0]=="")break;
+  startadr = parseInt(memtable[selnum][idx][0]);
+  endadr = parseInt(memtable[selnum][idx][1]);
+
+  labelname = startadr.toString(16).toUpperCase();
+  labelname += "h";
+  x=40;
+  y=adr2pos(startadr)+6;
+  ctx.fillStyle = '#000000';
+  ctx.fillText(labelname , x, y);
+
+  x=90;
+  y=adr2pos(startadr);
+  ctx.fillStyle = colortable[idx+1];
+  ctx.fillRect(x, y, 180, adr2pos(endadr+1)-adr2pos(startadr));
+}
+
+for (idx = 0; idx < 9; idx++) {
+  if(memtable[selnum][idx][0]=="")break;
+  startadr = parseInt(memtable[selnum][idx][0]);
+  endadr = parseInt(memtable[selnum][idx][1]);
+  labelname = memtable[selnum][idx][2];
+
+  labelname += " (";
+  if((((endadr+1)-startadr)<1024) ||(((endadr+1)-startadr)% 1024)){
+    labelname += String((endadr+1)-startadr);
+    labelname += "Bytes)";
+  }else{
+    labelname += String(parseInt(((endadr+1)-startadr) / 1024));
+    labelname += "KB)";
+  }
+
+  x=110;
+  y=adr2pos((startadr + (endadr+1))/2)+6;
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(labelname , x-1, y-1);
+  ctx.fillText(labelname , x+1, y-1);
+  ctx.fillText(labelname , x-1, y+1);
+  ctx.fillText(labelname , x+1, y+1);
+  ctx.fillStyle = '#000000';
+  ctx.fillText(labelname , x, y);
+}
+
+}
+//-->
+</script>
+</head>
+<body onLoad="test()">
+PC-6001 Memory Map<br>
+<canvas id="myCanvas" width="480" height="480"></canvas>
+<br>
+<select id="menu">
+<option value="0">N60-BASIC(16K) page1</option>
+<option value="1">N60-BASIC(16K) page2</option>
+<option value="2">N60-BASIC(32K) page1</option>
+<option value="3">N60-BASIC(32K) page2</option>
+<option value="4">N60-BASIC(32K) page3</option>
+<option value="5">N60-BASIC(32K) page4</option>
+</select>
+
+<input type="button" value="select" onclick="test();"/>
+<br>
+<hr>
+(C)2021 takuya matsubara.
+<br>
+</body>
+</html>
