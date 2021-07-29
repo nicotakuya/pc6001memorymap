@@ -12,6 +12,10 @@ PC-6001のメモリマップを表示するJavascriptです。
 
 ## hot to run
 
+実行例
+
+https://nicotak.com/sonota/p6memorymap.html
+
 Webブラウザでhtmlファイルを開くだけです。
 
 コンボボックスから知りたいモードを選択すると、メモリマップを表示します。
