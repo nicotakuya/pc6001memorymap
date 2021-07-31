@@ -9,7 +9,7 @@ const memtable = [
  [
   ["0x0000","0x3FFF","BASIC INTERPRETER"],
   ["0x4000","0xBFFF","USER AREA A"],
-  ["0xC000","0xC3FF","SCREEN 1"],
+  ["0xC000","0xC3FF","PAGE 1"],
   ["0xC400","0xF9FF","USER AREA B"],
   ["0xFA00","0xFFFF","WORK AREA"],
   ["","",""],
@@ -19,9 +19,9 @@ const memtable = [
  ],[
   ["0x0000","0x3FFF","BASIC INTERPRETER"],
   ["0x4000","0xBFFF","USER AREA A"],
-  ["0xC000","0xC3FF","SCREEN 1"],
+  ["0xC000","0xC3FF","PAGE 1"],
   ["0xC400","0xDFFF","USER AREA B"],
-  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xE000","0xF9FF","PAGE 2"],
   ["0xFA00","0xFFFF","WORK AREA"],
   ["","",""],
   ["","",""],
@@ -29,7 +29,7 @@ const memtable = [
  ],[
   ["0x0000","0x3FFF","BASIC INTERPRETER"],
   ["0x4000","0x7FFF","USER AREA A"],
-  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8000","0x83FF","PAGE 1"],
   ["0x8400","0xF9FF","USER AREA B"],
   ["0xFA00","0xFFFF","WORK AREA"],
   ["","",""],
@@ -39,9 +39,9 @@ const memtable = [
  ],[
   ["0x0000","0x3FFF","BASIC INTERPRETER"],
   ["0x4000","0x7FFF","USER AREA A"],
-  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8000","0x83FF","PAGE 1"],
   ["0x8400","0xDFFF","USER AREA B"],
-  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xE000","0xF9FF","PAGE 2"],
   ["0xFA00","0xFFFF","WORK AREA"],
   ["","",""],
   ["","",""],
@@ -49,21 +49,21 @@ const memtable = [
  ],[
   ["0x0000","0x3FFF","BASIC INTERPRETER"],
   ["0x4000","0x7FFF","USER AREA A"],
-  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8000","0x83FF","PAGE 1"],
   ["0x8400","0xBFFF","USER AREA B"],
-  ["0xC000","0xDFFF","SCREEN 3"],
-  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xC000","0xDFFF","PAGE 3"],
+  ["0xE000","0xF9FF","PAGE 2"],
   ["0xFA00","0xFFFF","WORK AREA"],
   ["","",""],
   ["","",""]
  ],[
   ["0x0000","0x3FFF","BASIC INTERPRETER"],
   ["0x4000","0x7FFF","USER AREA A"],
-  ["0x8000","0x83FF","SCREEN 1"],
+  ["0x8000","0x83FF","PAGE 1"],
   ["0x8400","0x9FFF","USER AREA B"],
-  ["0xA000","0xBFFF","SCREEN 4"],
-  ["0xC000","0xDFFF","SCREEN 3"],
-  ["0xE000","0xF9FF","SCREEN 2"],
+  ["0xA000","0xBFFF","PAGE 4"],
+  ["0xC000","0xDFFF","PAGE 3"],
+  ["0xE000","0xF9FF","PAGE 2"],
   ["0xFA00","0xFFFF","WORK AREA"],
   ["","",""]
  ]
@@ -149,6 +149,13 @@ for (idx = 0; idx < 9; idx++) {
   ctx.fillText(labelname , x+1, y+1);
   ctx.fillStyle = '#000000';
   ctx.fillText(labelname , x, y);
+}
+
+ctx.fillStyle = '#aaaaaa';
+for (startadr = 0x0000; startadr <= 0x10000; startadr += 0x1000) {
+  x = 80;
+  y = adr2pos(startadr);
+  ctx.fillRect(x, y, 10, 1);
 }
 
 }
