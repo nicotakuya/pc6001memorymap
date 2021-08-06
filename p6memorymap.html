@@ -86,10 +86,10 @@ const colortable = [
   "#884444"
 ];
 
-function adr2pos(adr){
+function adr2pos(adr,invert){
   var pos;
   pos = (adr / 160)+10;
-//  pos = 440 - pos;	// for old user
+  if(invert > 0)pos = 440 - pos;
   return(pos);
 }
 
@@ -100,11 +100,26 @@ var ctx = canvas.getContext("2d");
 var menu = document.getElementById("menu");
 var selnum = menu.value;
 
+var align = document.getElementById("align");
+var invert = align.value;
+
 var startadr,endadr,labelname;
 var tmpstr,x,y,idx;
 
 ctx.fillStyle = '#f0f0f0';
 ctx.fillRect(0, 0, 480, 480);
+
+ctx.fillStyle = '#aaaaaa';
+for (startadr = 0x0000; startadr <= 0x10000; startadr += 0x1000) {
+  x = 82;
+  y = adr2pos(startadr,invert);
+  ctx.fillRect(x, y, 8, 1);
+}
+
+x = 40;
+y = adr2pos(0xFFFF,invert)+6;
+ctx.fillStyle = '#000000';
+ctx.fillText('FFFFh' , x, y);
 
 ctx.font = "14px";
 for (idx = 0; idx < 9; idx++) {
@@ -114,15 +129,20 @@ for (idx = 0; idx < 9; idx++) {
 
   labelname = startadr.toString(16).toUpperCase();
   labelname += "h";
-  x=40;
-  y=adr2pos(startadr)+6;
+  x = 40;
+  y = adr2pos(startadr,invert)+6;
   ctx.fillStyle = '#000000';
   ctx.fillText(labelname , x, y);
 
-  x=90;
-  y=adr2pos(startadr);
+  x = 75;
+  y = adr2pos(startadr,invert);
   ctx.fillStyle = colortable[idx+1];
-  ctx.fillRect(x, y, 180, adr2pos(endadr+1)-adr2pos(startadr));
+  ctx.fillRect(x, y, 15, 1);
+
+  x=90;
+  y=adr2pos(startadr,invert);
+  ctx.fillStyle = colortable[idx+1];
+  ctx.fillRect(x, y, 180, adr2pos(endadr+1,invert)-adr2pos(startadr,invert));
 }
 
 for (idx = 0; idx < 9; idx++) {
@@ -141,7 +161,7 @@ for (idx = 0; idx < 9; idx++) {
   }
 
   x=110;
-  y=adr2pos((startadr + (endadr+1))/2)+6;
+  y=adr2pos((startadr + (endadr+1))/2,invert)+6;
   ctx.fillStyle = '#ffffff';
   ctx.fillText(labelname , x-1, y-1);
   ctx.fillText(labelname , x+1, y-1);
@@ -149,13 +169,6 @@ for (idx = 0; idx < 9; idx++) {
   ctx.fillText(labelname , x+1, y+1);
   ctx.fillStyle = '#000000';
   ctx.fillText(labelname , x, y);
-}
-
-ctx.fillStyle = '#aaaaaa';
-for (startadr = 0x0000; startadr <= 0x10000; startadr += 0x1000) {
-  x = 80;
-  y = adr2pos(startadr);
-  ctx.fillRect(x, y, 10, 1);
 }
 
 }
@@ -173,6 +186,11 @@ PC-6001 Memory Map<br>
 <option value="3">N60-BASIC(32K) page2</option>
 <option value="4">N60-BASIC(32K) page3</option>
 <option value="5">N60-BASIC(32K) page4</option>
+</select>
+
+<select id="align">
+<option value="0">Start from 0000</option>
+<option value="1">Start from FFFF</option>
 </select>
 
 <input type="button" value="select" onclick="test();"/>
