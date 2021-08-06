@@ -18,10 +18,9 @@ https://nicotak.com/sonota/p6memorymap.html
 
 ・コンボボックスから知りたいモードとページ数を選択すると、メモリマップを表示します。
 
-・表示の上下反転も可能。
+・「Start from」を選択することで、表示の上下反転も可能。
 
 ## screenshot
 
-
-![memorymap](https://user-images.githubusercontent.com/5597377/127733394-f5710059-2881-4c5e-bf59-179137bf1814.png)
+![invert](https://user-images.githubusercontent.com/5597377/128516234-e88b5a22-bbc7-4e4c-b5da-a8ada19b2d40.png)
 
