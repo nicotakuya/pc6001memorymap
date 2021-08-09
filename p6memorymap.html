@@ -66,6 +66,86 @@ const memtable = [
   ["0xE000","0xF9FF","PAGE 2"],
   ["0xFA00","0xFFFF","WORK AREA"],
   ["","",""]
+ ],[
+  ["0x0000","0x5FFF","BASIC INTERPRETER"],
+  ["0x6000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","PAGE 1"],
+  ["0x8400","0xF9FF","USER AREA B +WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x5FFF","BASIC INTERPRETER"],
+  ["0x6000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","PAGE 1"],
+  ["0x8400","0xDFFF","USER AREA B + 拡張WORK AREA"],
+  ["0xE000","0xF9FF","PAGE 2"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x5FFF","BASIC INTERPRETER"],
+  ["0x6000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","PAGE 1"],
+  ["0x8400","0xBFFF","USER AREA B +拡張WORK AREA"],
+  ["0xC000","0xDFFF","PAGE 3"],
+  ["0xE000","0xF9FF","PAGE 2"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x5FFF","BASIC INTERPRETER"],
+  ["0x6000","0x7FFF","USER AREA A"],
+  ["0x8000","0x83FF","PAGE 1"],
+  ["0x8400","0x9FFF","USER AREA B +拡張WORK AREA"],
+  ["0xA000","0xBFFF","PAGE 4"],
+  ["0xC000","0xDFFF","PAGE 3"],
+  ["0xE000","0xF9FF","PAGE 2"],
+  ["0xFA00","0xFFFF","WORK AREA"],
+  ["","",""]
+ ],[
+  ["0x0000","0x07FF","PAGE 1"],
+  ["0x0800","0x7FFF","USER AREA A"],
+  ["0x8000","0xFFFF","USER AREA B +WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","PAGE 2"],
+  ["0x4000","0x47FF","PAGE 1"],
+  ["0x4800","0x7FFF","USER AREA A"],
+  ["0x8000","0xFFFF","USER AREA B +WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","PAGE 3"],
+  ["0x4000","0x7FFF","PAGE 2"],
+  ["0x8000","0x87FF","PAGE 1"],
+  ["0x8800","0xFFFF","USER AREA B +WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""]
+ ],[
+  ["0x0000","0x3FFF","PAGE 4"],
+  ["0x4000","0x7FFF","PAGE 3"],
+  ["0x8000","0xBFFF","PAGE 2"],
+  ["0xC000","0xC7FF","PAGE 1"],
+  ["0xC800","0xFFFF","USER AREA B +WORK AREA"],
+  ["","",""],
+  ["","",""],
+  ["","",""],
+  ["","",""]
  ]
 ];
 
@@ -152,7 +232,7 @@ for (idx = 0; idx < 9; idx++) {
   labelname = memtable[selnum][idx][2];
 
   labelname += " (";
-  if((((endadr+1)-startadr)<1024) ||(((endadr+1)-startadr)% 1024)){
+  if(((endadr+1)-startadr)% 1024){
     labelname += String((endadr+1)-startadr);
     labelname += "Bytes)";
   }else{
@@ -186,6 +266,14 @@ PC-6001 Memory Map<br>
 <option value="3">N60-BASIC(32K) page2</option>
 <option value="4">N60-BASIC(32K) page3</option>
 <option value="5">N60-BASIC(32K) page4</option>
+<option value="6">N60-拡張BASIC(32K) page1</option>
+<option value="7">N60-拡張BASIC(32K) page2</option>
+<option value="8">N60-拡張BASIC(32K) page3</option>
+<option value="9">N60-拡張BASIC(32K) page4</option>
+<option value="10">N60m-BASIC(mkII) page1</option>
+<option value="11">N60m-BASIC(mkII) page2</option>
+<option value="12">N60m-BASIC(mkII) page3</option>
+<option value="13">N60m-BASIC(mkII) page4</option>
 </select>
 
 <select id="align">
